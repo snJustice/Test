@@ -20,3 +20,6 @@ D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\bin\
 D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\Release\条烟纠错系统.csprojResolveAssemblyReference.cache
 D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\Release\条烟纠错系统.exe
 D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\Release\条烟纠错系统.pdb
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\条烟纠错系统\bin\Release\条烟纠错系统.exe.config
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\条烟纠错系统\obj\Release\条烟纠错系统.exe
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\条烟纠错系统\obj\Release\条烟纠错系统.pdb

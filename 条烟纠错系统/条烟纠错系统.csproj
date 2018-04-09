@@ -176,6 +176,12 @@
     <Compile Include="SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemSettingsForm.Designer.cs">
+      <DependentUpon>SystemSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TableHandles\IGetOrder.cs" />
     <Compile Include="TableHandles\SqlServerGetOrder.cs" />
     <Compile Include="TableHandles\SqlTableHandle.cs" />
@@ -206,6 +212,9 @@
     <EmbeddedResource Include="SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SystemSettingsForm.resx">
+      <DependentUpon>SystemSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </EmbeddedResource>
@@ -231,6 +240,12 @@
     <Folder Include="Applications\PickList\Dto\" />
     <Folder Include="Applications\Product\" />
     <Folder Include="Applications\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JsonRead\JsonRead.csproj">
+      <Project>{845978e6-7002-4ea1-87c4-2cc19d7b11e4}</Project>
+      <Name>JsonRead</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

@@ -1,0 +1,7 @@
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\bin\Debug\JsonRead.dll
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\bin\Debug\JsonRead.pdb
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\bin\Debug\Newtonsoft.Json.dll
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\bin\Debug\Newtonsoft.Json.xml
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\obj\Debug\JsonRead.csprojResolveAssemblyReference.cache
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\obj\Debug\JsonRead.dll
+D:\Work\项目具体内容\香烟\程序\条烟纠错系统2018-4-9\JsonRead\obj\Debug\JsonRead.pdb

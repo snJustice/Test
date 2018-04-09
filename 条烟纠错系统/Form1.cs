@@ -15,12 +15,16 @@ using 条烟纠错系统.DSocket;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using 条烟纠错系统.TableHandles;
+using JsonRead.Model;
+using JsonRead.Json;
 
 namespace 条烟纠错系统
 {
     public partial class Form1 : Form
     {
-        TCPCommunication tcp;
+        #region 变量
+        TCPCommunication tcp;//tcp连接
+
         object lockkk ;
         DataBaseProgress xx ;
         List<PackageShow> paskages ;     
@@ -30,23 +34,20 @@ namespace 条烟纠错系统
         TableHandleBase orderHandle;//订单处理
 
 
+        #endregion
+
 
         public Form1()
         {
             InitializeComponent();
 
-            lockkk = new object();
-            xx = new DataBaseProgress();
-            paskages = new List<PackageShow>();
-            packageShowTable = new DataTable();
-
-            orderInterface = new SqlServerGetOrder();
-            orderHandle = new SqlTableHandle(orderInterface);
-            orderHandle.finishedLoading += FinishingLoadData;
+           
 
 
         }
 
+        #region 按钮事件，关闭窗口，下载订单,完成下载后的任务
+        //订单下载按钮
         private async void btnLoadingOrder_Click(object sender, EventArgs e)
         {
             paskages = new List<PackageShow>();
@@ -68,40 +69,19 @@ namespace 条烟纠错系统
         }
 
         
-
+        //关闭程序按钮
         private void btnClose_Click(object sender, EventArgs e)
         {
             orderHandle.GetAllPackages();
             ShowPakageDetail();
             SetCustomersTxt();
-
-
-        }
-
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            currenTime.Text = DateTime.Now.ToString();
-            InitNeededTables();
-            tcp = new TCPCommunication("127.0.0.1", PackageOk);
-            await tcp.ConnectAsync();
-            
-
-
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (tcp != null && tcp.IsConnected)
-            {
-                tcp.Close();
-            }
         }
 
         //下载完成后做的事情
         public void FinishingLoadData()
         {
             orderHandle.GetAllPackages();
-            
+
             if (splashScreenManager1.IsSplashFormVisible)
             {
                 splashScreenManager1.CloseWaitForm();
@@ -111,9 +91,9 @@ namespace 条烟纠错系统
         //如果表中增加了产品，插入到数据表中
         public async void InsertNewProduct()
         {
-            var remoteProductList = await xx.GetProductInRemote();
+            var remoteProductList = await xx.GetProductInRemote();//从接口中获得此次的所有产品
 
-            var productListInDB = await xx.GetProduct();
+            var productListInDB = await xx.GetProduct();//获得当前已存在的产品
             List<string> needProductID = new List<string>();
 
             foreach (Product move in productListInDB)
@@ -121,11 +101,50 @@ namespace 条烟纠错系统
                 needProductID.Add(move.ProductID.Trim());
             }
 
-            var needProduct = remoteProductList.FindAll(n => !needProductID.Contains(n.ProductID.Trim()));
-            await xx.InsertProductRange(needProduct);
+            var needProduct = remoteProductList.FindAll(n => !needProductID.Contains(n.ProductID.Trim()));//得到新的产品型号
+            await xx.InsertProductRange(needProduct);//插入产品
         }
 
-        //分析扫到的条烟是否在包中
+        #endregion
+
+
+        #region 窗口事件
+        //窗口加载
+        private  void Form1_Load(object sender, EventArgs e)
+        {
+            lockkk = new object();
+            xx = new DataBaseProgress();
+            paskages = new List<PackageShow>();
+            packageShowTable = new DataTable();
+
+            orderInterface = new SqlServerGetOrder();
+            orderHandle = new SqlTableHandle(orderInterface);
+            orderHandle.finishedLoading += FinishingLoadData;
+
+
+            currenTime.Text = DateTime.Now.ToString();
+            InitNeededTables();
+           
+            
+
+
+        }
+
+
+        //窗口关闭
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (tcp != null && tcp.IsConnected)
+            {
+                tcp.Close();
+            }
+        }
+        #endregion
+
+        
+
+        #region 接收到条码信息后的处理
+        //分析扫到的条烟是否在包中，接收到数据后的事件
         private void PackageOk(DataPackageInfo _code)
         {
             var code = _code.CodeData;
@@ -207,6 +226,7 @@ namespace 条烟纠错系统
             }
         }
 
+
         //分析一个包中条烟数量情况
         private void ResultAnalysis(int _result, int _abnormalCount, int _allCount, PickPackageDetail _pd )
         {
@@ -285,6 +305,7 @@ namespace 条烟纠错系统
 
 
         }
+
         //检测一个包是否合格
         private void OkNGFlag(int _result, int _abnormalCount,PackageShow _ps)
         {
@@ -319,8 +340,9 @@ namespace 条烟纠错系统
 
         }
 
-        
+        #endregion
 
+        #region move /locate package
         //包向后移动
         private void PackageMoveNext()
         {
@@ -340,6 +362,10 @@ namespace 条烟纠错系统
             }
         }
 
+        #endregion
+
+
+        #region 显示用户界面表的操作，显示数据，初始化表
         //向显示表中插入一条烟
         private void InsertOnePackageDetail(PickPackageDetail _packagedetail)
         {
@@ -387,7 +413,9 @@ namespace 条烟纠错系统
             packageShowTable.Columns["readed"].DefaultValue = "0";
             skinDataGridView2.DataSource = packageShowTable;
         }
+        #endregion
 
+        #region 按钮事件，一些对话框的显示
         //显示查询界面
         private void btnMessageSearch_Click(object sender, EventArgs e)
         {
@@ -398,15 +426,21 @@ namespace 条烟纠错系统
         //code查看
         private void skinButton3_Click(object sender, EventArgs e)
         {
-
-
             ExceptionForm exform = new ExceptionForm();
-            exform.Show();
+            exform.Show();  
+        }
 
-            
+        private  void btnSystemSetting_Click(object sender, EventArgs e)
+        {
+            SystemSettingsForm systemform = new SystemSettingsForm();
+            systemform.ShowDialog();
+
 
         }
 
+        #endregion
+
+        #region 按钮事件，定位包,开始运行
         //定位包
         private void btnLocatePackage_Click(object sender, EventArgs e)
         {
@@ -416,16 +450,32 @@ namespace 条烟纠错系统
 
         }
 
+        private async void btnStart_Click(object sender, EventArgs e)
+        {
+            CustomerJsonRead<ConfigureMessageModel> configureJson = new CustomerJsonRead<ConfigureMessageModel>();
+            var configure = configureJson.GetJsonClass();
+            if(configure==null)
+            {
+                MessageBox.Show("请先配置通讯信息");
+                return;
+            }
+
+            tcp = new TCPCommunication(configure.TCPS.TCPCameria.IP, PackageOk);
+            tcp.Port = configure.TCPS.TCPCameria.Port;
+            await tcp.ConnectAsync();
+        }
+
+        #endregion
+
+        #region 定时器事件,显示时间等信息
         private void timer1_Tick(object sender, EventArgs e)
         {
             currenTime.Text = DateTime.Now.ToString();
         }
 
-        private async void btnSystemSetting_Click(object sender, EventArgs e)
-        {
-            
 
-            
-        }
+        #endregion
+
+        
     }
 }

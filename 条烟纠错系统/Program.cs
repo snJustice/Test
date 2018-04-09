@@ -16,7 +16,7 @@ namespace 条烟纠错系统
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ExceptionForm());
+            Application.Run(new Form1());
         }
     }
 }

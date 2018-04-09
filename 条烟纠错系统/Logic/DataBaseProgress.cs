@@ -246,7 +246,7 @@ namespace 条烟纠错系统.Logic
         public async Task<List<Product>> GetProductInRemote()
         {
             
-            return await  dataBase.Database.SqlQuery<Product>("SELECT DISTINCT TOP 1000 [productID],[productName] FROM[JC_JCXT].[dbo].[V_PackInterface] ").ToListAsync();
+            return await  dataBase.Database.SqlQuery<Product>("SELECT DISTINCT  [productID],[productName] FROM[JC_JCXT].[dbo].[V_PackInterface] ").ToListAsync();
             
         }
 
