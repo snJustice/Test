@@ -1,0 +1,3 @@
+D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\x64\Release\条烟纠错系统.Form1.resources
+D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\x64\Release\条烟纠错系统.Properties.Resources.resources
+D:\Work\项目\香烟\程序\条烟纠错系统 - 副本\条烟纠错系统\obj\x64\Release\条烟纠错系统.csproj.GenerateResource.Cache
